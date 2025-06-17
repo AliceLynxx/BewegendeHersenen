@@ -73,17 +73,20 @@ Eenvoudige modulaire opbouw:
 - **Afhankelijkheden**: bewegende_hersenen.py, numpy, matplotlib, scipy
 
 ### demo_rennend_mannetje.py
-- **Status**: ✅ Voltooid
+- **Status**: ✅ Voltooid en Verbeterd (realistische vorm en grijstinten achtergrond)
 - **Pad**: /demo_rennend_mannetje.py
 - **Functionaliteit**:
   - Creatieve demonstratie met rennend figuur door hersenen
-  - create_running_figure_sprite() voor animatie sprites met verschillende poses
+  - **VERBETERD**: create_running_figure_sprite() met realistische schuine armen en natuurlijke rennende poses
+  - **VERBETERD**: 8-frame animatiecyclus voor vloeiendere beweging
+  - **VERBETERD**: create_brain_background_advanced() voor grijstinten achtergrond met hoog contrast
   - create_brain_path() voor smooth bewegingspad door hersengebieden
-  - create_brain_background_advanced() voor gedetailleerde hersenachtergrond
   - generate_running_animation_data() voor rennende figuur animatie data
   - Bewegingspad visualisatie en analyse plots
   - Vergelijkingsplots van verschillende animatie aspecten
   - Educatieve annotaties over hersengebieden
+  - **BEHOUDEN**: Geel/rood/oranje kleuren voor het mannetje (plasma colormap)
+  - **VERBETERD**: Betere zichtbaarheid door contrast tussen grijze achtergrond en gekleurde figuur
   - Speelse en presentatie-vriendelijke visualisatie
   - Demonstreert creatief gebruik van de BewegendeHersenen toolkit
 - **Afhankelijkheden**: bewegende_hersenen.py, numpy, matplotlib
