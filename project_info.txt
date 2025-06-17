@@ -33,13 +33,16 @@ Eenvoudige modulaire opbouw:
 ## Module status en functionaliteit
 
 ### bewegende_hersenen.py
-- **Status**: Nog niet gemaakt
+- **Status**: ✅ Voltooid
 - **Pad**: /bewegende_hersenen.py
 - **Functionaliteit**: 
-  - Hoofdklasse BewegendHersenAnimatie
-  - Methode voor het laden van numpy arrays
-  - Methode voor het genereren van animaties
-  - Basis visualisatie instellingen (colormap, timing)
+  - Hoofdklasse BewegendHersenAnimatie met volledige implementatie
+  - load_data() methode voor numpy array input met validatie
+  - create_animation() methode voor fMRI-achtige animaties
+  - Ondersteuning voor GIF en MP4 export
+  - Brain-georiënteerde colormaps (hot, plasma, inferno, viridis)
+  - Error handling en input validatie
+  - Convenience functie maak_snelle_animatie()
 - **Afhankelijkheden**: matplotlib, numpy
 
 ### demo.py
