@@ -1,0 +1,63 @@
+# BewegendeHersenen - Project Stappen
+
+## Stap 1: Basis requirements en dependencies (MUST-HAVE)
+**Omschrijving**: Opzetten van de basis project structuur en dependencies.
+
+**Doel**: Een solide fundament leggen voor de library zodat gebruikers direct aan de slag kunnen. Dit is essentieel omdat zonder de juiste dependencies de library niet functioneert. De doelgroep (onderzoekers, studenten) heeft behoefte aan een plug-and-play oplossing.
+
+**Bestanden**:
+- Aanmaken: requirements.txt
+- Wijzigen: README.md (installatie instructies toevoegen)
+
+**Acties**:
+- Definieer minimale dependencies (matplotlib, numpy)
+- Voeg installatie instructies toe aan README
+
+## Stap 2: Kern animatie functionaliteit (MUST-HAVE)
+**Omschrijving**: Implementatie van de hoofdmodule met basis animatie functionaliteit.
+
+**Doel**: De core functionaliteit realiseren waarmee gebruikers numpy arrays kunnen omzetten naar fMRI-achtige animaties. Dit is het hart van de library en direct gericht op de primaire behoefte: visualisatie van hersenactiviteit over tijd. Zonder deze functionaliteit heeft de library geen bestaansrecht.
+
+**Bestanden**:
+- Aanmaken: bewegende_hersenen.py
+  - Klasse BewegendHersenAnimatie
+  - Methode load_data() voor numpy arrays
+  - Methode create_animation() voor animatie generatie
+  - Basis colormap instellingen (brain-like colors)
+
+**Acties**:
+- Implementeer hoofdklasse met minimale interface
+- Zorg voor fMRI-achtige visualisatie (brain colormap, smooth transitions)
+- Basis error handling voor input validatie
+
+## Stap 3: Werkend demo voorbeeld (MUST-HAVE)
+**Omschrijving**: Creatie van een eenvoudig demo script dat de functionaliteit demonstreert.
+
+**Doel**: Gebruikers direct laten zien hoe de library werkt en hen in staat stellen om snel te starten. Voor de doelgroep (onderzoekers, studenten) is een werkend voorbeeld cruciaal om de waarde en bruikbaarheid te begrijpen. Dit verlaagt de drempel voor adoptie aanzienlijk.
+
+**Bestanden**:
+- Aanmaken: demo.py
+  - Generatie van test data (3D numpy array simulerend hersenactiviteit)
+  - Voorbeeld implementatie van BewegendHersenAnimatie
+  - Opslaan van animatie als gif of mp4
+
+**Acties**:
+- Maak realistische test data die lijkt op fMRI signalen
+- Demonstreer complete workflow van data tot animatie
+- Voeg comments toe voor educatieve waarde
+
+## Stap 4: Basis documentatie en gebruiksvoorbeelden (MUST-HAVE)
+**Omschrijving**: Uitbreiding van documentatie met praktische gebruiksvoorbeelden.
+
+**Doel**: Gebruikers volledig ondersteunen bij het implementeren van de library in hun eigen projecten. Goede documentatie is essentieel voor adoptie door de doelgroep en vermindert support vragen. Het verhoogt de professionele uitstraling en betrouwbaarheid.
+
+**Bestanden**:
+- Wijzigen: README.md
+  - Uitgebreide gebruiksvoorbeelden
+  - API documentatie
+  - Troubleshooting sectie
+
+**Acties**:
+- Voeg code voorbeelden toe
+- Documenteer alle publieke methoden
+- Voeg visuele voorbeelden toe (screenshots van animaties)
