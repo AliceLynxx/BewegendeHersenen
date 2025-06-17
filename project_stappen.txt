@@ -1,17 +1,7 @@
 # BewegendeHersenen - Project Stappen
 
-## Stap 1: Basis requirements en dependencies (MUST-HAVE)
-**Omschrijving**: Opzetten van de basis project structuur en dependencies.
-
-**Doel**: Een solide fundament leggen voor de library zodat gebruikers direct aan de slag kunnen. Dit is essentieel omdat zonder de juiste dependencies de library niet functioneert. De doelgroep (onderzoekers, studenten) heeft behoefte aan een plug-and-play oplossing.
-
-**Bestanden**:
-- Aanmaken: requirements.txt
-- Wijzigen: README.md (installatie instructies toevoegen)
-
-**Acties**:
-- Definieer minimale dependencies (matplotlib, numpy)
-- Voeg installatie instructies toe aan README
+## ✅ Voltooid: Stap 1 - Basis requirements en dependencies
+Requirements.txt en README.md installatie instructies toegevoegd. Dependencies: numpy>=1.20.0, matplotlib>=3.5.0.
 
 ## Stap 2: Kern animatie functionaliteit (MUST-HAVE)
 **Omschrijving**: Implementatie van de hoofdmodule met basis animatie functionaliteit.
