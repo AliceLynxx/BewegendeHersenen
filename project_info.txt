@@ -1,0 +1,58 @@
+# BewegendeHersenen - Project Informatie
+
+## Projectomschrijving
+Python library voor het maken van matplotlib animaties op basis van numpy arrays, specifiek gericht op het visualiseren van functional MRI-achtige hersenactiviteit.
+
+## Project doel, nut en functie
+**Doel**: Een eenvoudige, gebruiksvriendelijke Python library ontwikkelen waarmee onderzoekers, studenten en professionals snel animaties kunnen maken die lijken op functional MRI (fMRI) hersenscans.
+
+**Doelgroep**: 
+- Neurowetenschappers en onderzoekers
+- Studenten in de neurowetenschappen
+- Educatieve professionals
+- Data visualisatie specialisten
+
+**Nut**: 
+- Visualisatie van hersenactiviteit over tijd
+- Educatieve demonstraties van fMRI data
+- Presentatie van onderzoeksresultaten
+- Prototype ontwikkeling voor complexere visualisaties
+
+**Functie**: 
+- Transformatie van numpy arrays naar animaties
+- Simulatie van fMRI-achtige visualisaties
+- Minimale complexiteit, maximale bruikbaarheid
+- Focus op essentiële functionaliteit zonder onnodige opties
+
+## Architectuur/modulestructuur
+Eenvoudige modulaire opbouw:
+- Hoofdmodule: bewegende_hersenen.py
+- Voorbeeld/demo script: demo.py
+- Documentatie: README.md met gebruiksvoorbeelden
+
+## Module status en functionaliteit
+
+### bewegende_hersenen.py
+- **Status**: Nog niet gemaakt
+- **Pad**: /bewegende_hersenen.py
+- **Functionaliteit**: 
+  - Hoofdklasse BewegendHersenAnimatie
+  - Methode voor het laden van numpy arrays
+  - Methode voor het genereren van animaties
+  - Basis visualisatie instellingen (colormap, timing)
+- **Afhankelijkheden**: matplotlib, numpy
+
+### demo.py
+- **Status**: Nog niet gemaakt  
+- **Pad**: /demo.py
+- **Functionaliteit**:
+  - Voorbeeld implementatie
+  - Generatie van test data
+  - Demonstratie van basis functionaliteit
+- **Afhankelijkheden**: bewegende_hersenen.py, numpy
+
+### requirements.txt
+- **Status**: Nog niet gemaakt
+- **Pad**: /requirements.txt  
+- **Functionaliteit**: Lijst van benodigde packages
+- **Afhankelijkheden**: Geen
