@@ -426,20 +426,20 @@ def create_running_demo():
     # Stap 3: Creëer animatie met grijstinten hersenachtergrond
     print("\nStap 3: Animatie met grijstinten hersenachtergrond combineren...")
     
-    # Gebruik de BewegendeHersenen library
+    # Gebruik de BewegendeHersenen library met grijstinten achtergrond
     animatie = BewegendHersenAnimatie(
         colormap='plasma',  # Behoud mooie geel/rood/oranje kleuren voor het mannetje
         interval=100,       # 100ms tussen frames = 10 FPS (iets sneller)
-        background_image=background_filename,
+        background_image=background_filename,  # Gebruik de grijstinten achtergrond
         overlay_alpha=0.9   # Rennend figuur goed zichtbaar tegen grijze achtergrond
     )
     
     # Laad de rennende data
     animatie.load_data(running_data)
     
-    # Genereer de finale animatie
+    # Genereer de finale animatie met grijstinten achtergrond
     output_filename = "rennend_mannetje_door_hersenen.gif"
-    print(f"   🎬 Creëren van verbeterde finale animatie: {output_filename}")
+    print(f"   🎬 Creëren van verbeterde finale animatie met grijstinten: {output_filename}")
     
     animation_obj = animatie.create_animation(
         output_path=output_filename,
@@ -459,17 +459,18 @@ def create_running_demo():
     
     print("\n🎉 Verbeterde rennend mannetje demo voltooid!")
     print(f"\n📁 Gegenereerde bestanden:")
-    print(f"   🎬 {output_filename} - Hoofdanimatie (verbeterd)")
+    print(f"   🎬 {output_filename} - Hoofdanimatie (grijstinten achtergrond)")
     print(f"   🖼️  {background_filename} - Grijstinten hersenachtergrond")
     print(f"   📊 rennend_mannetje_vergelijking.png - Vergelijkingsplot")
     print(f"   🗺️  rennend_mannetje_bewegingspad.png - Pad visualisatie")
     
     print(f"\n💡 Verbeteringen in deze versie:")
     print(f"   ✨ Realistischere rennende vorm met schuine armen")
-    print(f"   🎨 Grijstinten achtergrond met hoog contrast")
+    print(f"   🎨 Grijstinten achtergrond met hoog contrast (consistent)")
     print(f"   🌈 Behoud van mooie geel/rood/oranje kleuren")
     print(f"   🏃 Vloeiendere bewegingsanimatie")
     print(f"   👁️  Betere zichtbaarheid en visuele impact")
+    print(f"   🔧 Consistente grijstinten in alle bestanden")
     
     return output_filename
 
@@ -614,6 +615,7 @@ def main():
         print(f"   🎨 Grijstinten hersenachtergrond met hoog contrast")
         print(f"   🌈 Behoud van mooie geel/rood/oranje kleuren")
         print(f"   👁️  Betere visuele impact en zichtbaarheid")
+        print(f"   🔧 Consistente grijstinten in alle bestanden")
         print(f"\n🧠 Veel plezier met je eigen hersenvisualisaties!")
         
     except Exception as e:
