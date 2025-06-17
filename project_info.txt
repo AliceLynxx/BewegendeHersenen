@@ -46,13 +46,18 @@ Eenvoudige modulaire opbouw:
 - **Afhankelijkheden**: matplotlib, numpy
 
 ### demo.py
-- **Status**: Nog niet gemaakt  
+- **Status**: ✅ Voltooid
 - **Pad**: /demo.py
 - **Functionaliteit**:
-  - Voorbeeld implementatie
-  - Generatie van test data
-  - Demonstratie van basis functionaliteit
-- **Afhankelijkheden**: bewegende_hersenen.py, numpy
+  - Realistische fMRI-achtige test data generatie met generate_brain_like_data()
+  - Basis animatie demonstratie (demo_basic_animation)
+  - Geavanceerde features demo met verschillende colormaps (demo_advanced_features)
+  - Convenience functie demonstratie (demo_convenience_function)
+  - Educatieve tips en gebruiksaanwijzingen
+  - Complete workflow van data generatie tot animatie export
+  - Ondersteuning voor GIF en MP4 export
+  - Frame extractie demonstratie
+- **Afhankelijkheden**: bewegende_hersenen.py, numpy, matplotlib
 
 ### requirements.txt
 - **Status**: ✅ Voltooid
