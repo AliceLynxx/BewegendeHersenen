@@ -3,22 +3,8 @@
 ## ✅ Voltooid: Stap 1 - Basis requirements en dependencies
 Requirements.txt en README.md installatie instructies toegevoegd. Dependencies: numpy>=1.20.0, matplotlib>=3.5.0.
 
-## Stap 2: Kern animatie functionaliteit (MUST-HAVE)
-**Omschrijving**: Implementatie van de hoofdmodule met basis animatie functionaliteit.
-
-**Doel**: De core functionaliteit realiseren waarmee gebruikers numpy arrays kunnen omzetten naar fMRI-achtige animaties. Dit is het hart van de library en direct gericht op de primaire behoefte: visualisatie van hersenactiviteit over tijd. Zonder deze functionaliteit heeft de library geen bestaansrecht.
-
-**Bestanden**:
-- Aanmaken: bewegende_hersenen.py
-  - Klasse BewegendHersenAnimatie
-  - Methode load_data() voor numpy arrays
-  - Methode create_animation() voor animatie generatie
-  - Basis colormap instellingen (brain-like colors)
-
-**Acties**:
-- Implementeer hoofdklasse met minimale interface
-- Zorg voor fMRI-achtige visualisatie (brain colormap, smooth transitions)
-- Basis error handling voor input validatie
+## ✅ Voltooid: Stap 2 - Kern animatie functionaliteit
+Hoofdmodule bewegende_hersenen.py geïmplementeerd met BewegendHersenAnimatie klasse, load_data() en create_animation() methoden, brain-georiënteerde colormaps, input validatie en GIF/MP4 export functionaliteit.
 
 ## Stap 3: Werkend demo voorbeeld (MUST-HAVE)
 **Omschrijving**: Creatie van een eenvoudig demo script dat de functionaliteit demonstreert.
