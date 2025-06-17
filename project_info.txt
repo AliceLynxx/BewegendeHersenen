@@ -1,0 +1,72 @@
+# BewegendeHersenen - Project Informatie
+
+## Projectomschrijving
+BewegendeHersenen is een Python library die het eenvoudig maakt om dynamische animaties te creëren met matplotlib op basis van numpy arrays. Het project richt zich op het visualiseren van bewegende patronen, data-evolutie over tijd, en interactieve visualisaties.
+
+## Project doel, nut en functie
+**Doel**: Een gebruiksvriendelijke Python library ontwikkelen waarmee gebruikers snel en intuïtief animaties kunnen maken van hun numerieke data.
+
+**Doelgroep**: 
+- Data scientists die hun analyses willen visualiseren
+- Onderzoekers die bewegende patronen willen tonen
+- Studenten en docenten voor educatieve doeleinden
+- Ontwikkelaars die animaties nodig hebben in hun projecten
+
+**Nut**: 
+- Vereenvoudigt het proces van animatie-creatie in Python
+- Biedt herbruikbare templates voor veelvoorkomende animatietypes
+- Maakt complexe data-visualisatie toegankelijk voor beginners
+- Bespaart tijd door gestandaardiseerde animatiefuncties
+
+**Functie**:
+- Transformeert numpy arrays naar vloeiende matplotlib animaties
+- Biedt verschillende animatietypes (lijngrafiek, scatter, heatmap, etc.)
+- Ondersteunt export naar verschillende formaten (GIF, MP4, HTML)
+- Configureerbare animatiesnelheid en styling
+
+## Architectuur/modulestructuur
+```
+BewegendeHersenen/
+├── bewegende_hersenen/
+│   ├── __init__.py          # Main module entry point
+│   ├── core/
+│   │   ├── __init__.py
+│   │   ├── animator.py      # Basis animatie klasse
+│   │   └── data_handler.py  # Data preprocessing
+│   ├── animations/
+│   │   ├── __init__.py
+│   │   ├── line_animation.py    # Lijn animaties
+│   │   ├── scatter_animation.py # Scatter plot animaties
+│   │   └── heatmap_animation.py # Heatmap animaties
+│   └── utils/
+│       ├── __init__.py
+│       ├── export.py        # Export functionaliteit
+│       └── styling.py       # Styling opties
+├── examples/                # Voorbeeldscripts
+├── tests/                   # Unit tests
+├── docs/                    # Documentatie
+├── requirements.txt         # Dependencies
+├── setup.py                # Package setup
+└── README.md               # Project documentatie
+```
+
+## Module Status en Details
+
+### Core Modules
+- **animator.py**: Status: Niet gestart | Functionaliteit: Basis animatie klasse met gemeenschappelijke functionaliteit | Afhankelijkheden: matplotlib, numpy
+- **data_handler.py**: Status: Niet gestart | Functionaliteit: Data validatie en preprocessing | Afhankelijkheden: numpy, pandas (optioneel)
+
+### Animation Modules  
+- **line_animation.py**: Status: Niet gestart | Functionaliteit: Lijn- en curve animaties | Afhankelijkheden: core.animator
+- **scatter_animation.py**: Status: Niet gestart | Functionaliteit: Scatter plot animaties | Afhankelijkheden: core.animator
+- **heatmap_animation.py**: Status: Niet gestart | Functionaliteit: Heatmap en matrix animaties | Afhankelijkheden: core.animator
+
+### Utility Modules
+- **export.py**: Status: Niet gestart | Functionaliteit: Export naar GIF, MP4, HTML | Afhankelijkheden: matplotlib, pillow, ffmpeg
+- **styling.py**: Status: Niet gestart | Functionaliteit: Styling templates en configuratie | Afhankelijkheden: matplotlib
+
+### Support Files
+- **__init__.py** bestanden: Status: Niet gestart | Functionaliteit: Module imports en API definitie
+- **setup.py**: Status: Niet gestart | Functionaliteit: Package installatie configuratie
+- **requirements.txt**: Status: Niet gestart | Functionaliteit: Dependency management
+- **README.md**: Status: Niet gestart | Functionaliteit: Project documentatie en gebruiksvoorbeelden
