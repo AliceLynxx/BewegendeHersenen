@@ -52,7 +52,13 @@ Eenvoudige modulaire opbouw:
 - **Afhankelijkheden**: bewegende_hersenen.py, numpy
 
 ### requirements.txt
-- **Status**: Nog niet gemaakt
+- **Status**: ✅ Voltooid
 - **Pad**: /requirements.txt  
-- **Functionaliteit**: Lijst van benodigde packages
+- **Functionaliteit**: Lijst van benodigde packages (numpy>=1.20.0, matplotlib>=3.5.0)
+- **Afhankelijkheden**: Geen
+
+### README.md
+- **Status**: ✅ Basis voltooid (installatie instructies toegevoegd)
+- **Pad**: /README.md
+- **Functionaliteit**: Project documentatie, installatie instructies, gebruiksvoorbeelden
 - **Afhankelijkheden**: Geen
