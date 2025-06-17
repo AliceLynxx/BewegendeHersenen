@@ -31,6 +31,7 @@ Python library voor het maken van matplotlib animaties op basis van numpy arrays
 Eenvoudige modulaire opbouw:
 - Hoofdmodule: bewegende_hersenen.py
 - Voorbeeld/demo script: demo.py
+- Creatieve demo: demo_rennend_mannetje.py
 - Dependencies: requirements.txt
 - Documentatie: README.md met gebruiksvoorbeelden
 
@@ -70,6 +71,22 @@ Eenvoudige modulaire opbouw:
   - Ondersteuning voor GIF en MP4 export
   - Frame extractie demonstratie
 - **Afhankelijkheden**: bewegende_hersenen.py, numpy, matplotlib, scipy
+
+### demo_rennend_mannetje.py
+- **Status**: ✅ Voltooid
+- **Pad**: /demo_rennend_mannetje.py
+- **Functionaliteit**:
+  - Creatieve demonstratie met rennend figuur door hersenen
+  - create_running_figure_sprite() voor animatie sprites met verschillende poses
+  - create_brain_path() voor smooth bewegingspad door hersengebieden
+  - create_brain_background_advanced() voor gedetailleerde hersenachtergrond
+  - generate_running_animation_data() voor rennende figuur animatie data
+  - Bewegingspad visualisatie en analyse plots
+  - Vergelijkingsplots van verschillende animatie aspecten
+  - Educatieve annotaties over hersengebieden
+  - Speelse en presentatie-vriendelijke visualisatie
+  - Demonstreert creatief gebruik van de BewegendeHersenen toolkit
+- **Afhankelijkheden**: bewegende_hersenen.py, numpy, matplotlib
 
 ### requirements.txt
 - **Status**: ✅ Voltooid (bijgewerkt met scipy)
