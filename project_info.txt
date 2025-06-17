@@ -1,26 +1,29 @@
 # BewegendeHersenen - Project Informatie
 
 ## Projectomschrijving
-Python library voor het maken van matplotlib animaties op basis van numpy arrays, specifiek gericht op het visualiseren van functional MRI-achtige hersenactiviteit.
+Python library voor het maken van matplotlib animaties op basis van numpy arrays, specifiek gericht op het visualiseren van functional MRI-achtige hersenactiviteit met optionele hersenachtergrond overlay.
 
 ## Project doel, nut en functie
-**Doel**: Een eenvoudige, gebruiksvriendelijke Python library ontwikkelen waarmee onderzoekers, studenten en professionals snel animaties kunnen maken die lijken op functional MRI (fMRI) hersenscans.
+**Doel**: Een eenvoudige, gebruiksvriendelijke Python library ontwikkelen waarmee onderzoekers, studenten en professionals snel animaties kunnen maken die lijken op functional MRI (fMRI) hersenscans, met de mogelijkheid om realistische hersenachtergronden toe te voegen.
 
 **Doelgroep**: 
 - Neurowetenschappers en onderzoekers
 - Studenten in de neurowetenschappen
 - Educatieve professionals
 - Data visualisatie specialisten
+- Presentatie makers die professionele hersenvisualisaties nodig hebben
 
 **Nut**: 
 - Visualisatie van hersenactiviteit over tijd
 - Educatieve demonstraties van fMRI data
-- Presentatie van onderzoeksresultaten
+- Presentatie van onderzoeksresultaten met professionele uitstraling
 - Prototype ontwikkeling voor complexere visualisaties
+- Realistische overlay van functionele data op anatomische achtergronden
 
 **Functie**: 
 - Transformatie van numpy arrays naar animaties
 - Simulatie van fMRI-achtige visualisaties
+- Hersenachtergrond overlay met instelbare transparantie
 - Minimale complexiteit, maximale bruikbaarheid
 - Focus op essentiële functionaliteit zonder onnodige opties
 
@@ -28,41 +31,50 @@ Python library voor het maken van matplotlib animaties op basis van numpy arrays
 Eenvoudige modulaire opbouw:
 - Hoofdmodule: bewegende_hersenen.py
 - Voorbeeld/demo script: demo.py
+- Dependencies: requirements.txt
 - Documentatie: README.md met gebruiksvoorbeelden
 
 ## Module status en functionaliteit
 
 ### bewegende_hersenen.py
-- **Status**: ✅ Voltooid
+- **Status**: ✅ Voltooid (inclusief hersenachtergrond functionaliteit)
 - **Pad**: /bewegende_hersenen.py
 - **Functionaliteit**: 
   - Hoofdklasse BewegendHersenAnimatie met volledige implementatie
   - load_data() methode voor numpy array input met validatie
-  - create_animation() methode voor fMRI-achtige animaties
+  - load_background() methode voor hersenachtergrond afbeeldingen (PNG, JPG, JPEG)
+  - create_animation() methode voor fMRI-achtige animaties met optionele achtergrond overlay
+  - Automatische schaling van achtergrond naar fMRI data dimensies
+  - Instelbare overlay transparantie (overlay_alpha parameter)
   - Ondersteuning voor GIF en MP4 export
   - Brain-georiënteerde colormaps (hot, plasma, inferno, viridis)
   - Error handling en input validatie
   - Convenience functie maak_snelle_animatie()
-- **Afhankelijkheden**: matplotlib, numpy
+  - Nieuwe convenience functie maak_animatie_met_achtergrond()
+- **Afhankelijkheden**: matplotlib, numpy, scipy
 
 ### demo.py
-- **Status**: ✅ Voltooid
+- **Status**: ✅ Voltooid (inclusief hersenachtergrond demonstraties)
 - **Pad**: /demo.py
 - **Functionaliteit**:
   - Realistische fMRI-achtige test data generatie met generate_brain_like_data()
+  - create_sample_brain_background() voor voorbeeld hersenachtergrond generatie
   - Basis animatie demonstratie (demo_basic_animation)
+  - Nieuwe hersenachtergrond overlay demonstratie (demo_background_overlay)
   - Geavanceerde features demo met verschillende colormaps (demo_advanced_features)
   - Convenience functie demonstratie (demo_convenience_function)
-  - Educatieve tips en gebruiksaanwijzingen
+  - Demonstratie van verschillende overlay transparantie niveaus
+  - Vergelijkingsplot functionaliteit voor achtergrond vs overlay
+  - Educatieve tips en gebruiksaanwijzingen (inclusief achtergrond tips)
   - Complete workflow van data generatie tot animatie export
   - Ondersteuning voor GIF en MP4 export
   - Frame extractie demonstratie
-- **Afhankelijkheden**: bewegende_hersenen.py, numpy, matplotlib
+- **Afhankelijkheden**: bewegende_hersenen.py, numpy, matplotlib, scipy
 
 ### requirements.txt
-- **Status**: ✅ Voltooid
+- **Status**: ✅ Voltooid (bijgewerkt met scipy)
 - **Pad**: /requirements.txt  
-- **Functionaliteit**: Lijst van benodigde packages (numpy>=1.20.0, matplotlib>=3.5.0)
+- **Functionaliteit**: Lijst van benodigde packages (numpy>=1.20.0, matplotlib>=3.5.0, scipy>=1.7.0)
 - **Afhankelijkheden**: Geen
 
 ### README.md
