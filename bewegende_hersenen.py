@@ -401,6 +401,24 @@ class BewegendHersenAnimatie:
         return self.data[:, :, frame_index]
 
 
+# Helper functies voor statische achtergrond ondersteuning
+def zoek_standaard_achtergrond() -> Optional[str]:
+    """
+    Zoek naar afbeelding_achtergrond.png in huidige directory.
+    
+    Returns:
+        str or None: Pad naar achtergrond bestand of None als niet gevonden
+    """
+    standaard_bestandsnaam = "afbeelding_achtergrond.png"
+    
+    if os.path.exists(standaard_bestandsnaam):
+        print(f"✅ Standaard achtergrond gevonden: {standaard_bestandsnaam}")
+        return standaard_bestandsnaam
+    else:
+        print(f"ℹ️  Geen standaard achtergrond gevonden ({standaard_bestandsnaam})")
+        return None
+
+
 # Convenience functies voor snelle animaties
 def maak_snelle_animatie(numpy_array: np.ndarray, 
                         output_path: Optional[str] = None,
@@ -458,3 +476,51 @@ def maak_animatie_met_achtergrond(numpy_array: np.ndarray,
     )
     animatie.load_data(numpy_array)
     return animatie.create_animation(output_path=output_path)
+
+
+def maak_animatie_met_statische_achtergrond(numpy_array: np.ndarray,
+                                           achtergrond_pad: Optional[str] = None,
+                                           output_path: Optional[str] = None,
+                                           overlay_alpha: float = 0.7,
+                                           colormap: str = 'hot',
+                                           interval: int = 100) -> animation.FuncAnimation:
+    """
+    Convenience functie voor animatie met statische achtergrond.
+    Zoekt automatisch naar afbeelding_achtergrond.png als geen pad opgegeven.
+    
+    Args:
+        numpy_array (np.ndarray): 3D array met fMRI hersendata
+        achtergrond_pad (str, optional): Pad naar achtergrond afbeelding. 
+                                       Als None, zoekt naar 'afbeelding_achtergrond.png'
+        output_path (str, optional): Pad om animatie op te slaan
+        overlay_alpha (float): Transparantie van fMRI overlay (0.0-1.0)
+        colormap (str): Matplotlib colormap voor fMRI data
+        interval (int): Tijd tussen frames in ms
+        
+    Returns:
+        matplotlib.animation.FuncAnimation: Animatie object
+        
+    Raises:
+        FileNotFoundError: Als geen achtergrond afbeelding gevonden kan worden
+        ValueError: Als overlay_alpha niet tussen 0.0 en 1.0 ligt
+    """
+    # Als geen specifiek pad opgegeven, zoek naar standaard bestand
+    if achtergrond_pad is None:
+        achtergrond_pad = zoek_standaard_achtergrond()
+        
+        if achtergrond_pad is None:
+            raise FileNotFoundError(
+                "Geen achtergrond afbeelding gevonden. "
+                "Plaats 'afbeelding_achtergrond.png' in de huidige directory "
+                "of geef een specifiek pad op via achtergrond_pad parameter."
+            )
+    
+    # Gebruik de bestaande convenience functie
+    return maak_animatie_met_achtergrond(
+        numpy_array=numpy_array,
+        background_path=achtergrond_pad,
+        output_path=output_path,
+        overlay_alpha=overlay_alpha,
+        colormap=colormap,
+        interval=interval
+    )
