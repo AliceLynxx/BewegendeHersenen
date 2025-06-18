@@ -24,7 +24,8 @@ class BewegendHersenAnimatie:
     """
     
     def __init__(self, colormap: str = 'hot', interval: int = 100, 
-                 background_image: Optional[str] = None, overlay_alpha: float = 0.7):
+                 background_image: Optional[str] = None, overlay_alpha: float = 0.7,
+                 activity_threshold: Optional[float] = None):
         """
         Initialiseer BewegendHersenAnimatie.
         
@@ -34,11 +35,14 @@ class BewegendHersenAnimatie:
             interval (int): Tijd tussen frames in milliseconden
             background_image (str, optional): Pad naar hersenachtergrond afbeelding
             overlay_alpha (float): Transparantie van fMRI data overlay (0.0-1.0)
+            activity_threshold (float, optional): Drempel voor significante activiteit.
+                                                Als None, wordt automatisch berekend als 75e percentiel
         """
         self.colormap = colormap
         self.interval = interval
         self.background_image_path = background_image
         self.overlay_alpha = overlay_alpha
+        self.activity_threshold = activity_threshold
         self.data = None
         self.background_data = None
         self.fig = None
@@ -168,6 +172,48 @@ class BewegendHersenAnimatie:
         
         return scaled_background
     
+    def _calculate_activity_threshold(self, data: np.ndarray) -> float:
+        """
+        Bereken automatische drempel voor significante activiteit.
+        
+        Args:
+            data (np.ndarray): fMRI data array
+            
+        Returns:
+            float: Drempel waarde voor significante activiteit
+        """
+        if self.activity_threshold is not None:
+            return self.activity_threshold
+        
+        # Gebruik 75e percentiel als standaard drempel
+        # Dit betekent dat alleen de top 25% van activiteit wordt getoond
+        threshold = np.percentile(data, 75)
+        
+        # Zorg ervoor dat threshold niet te laag is (minimaal 10% van max waarde)
+        min_threshold = 0.1 * data.max()
+        threshold = max(threshold, min_threshold)
+        
+        return threshold
+    
+    def _create_masked_overlay_data(self, frame_data: np.ndarray, threshold: float) -> np.ma.MaskedArray:
+        """
+        Creëer masked array voor overlay data met transparantie voor lage waarden.
+        
+        Args:
+            frame_data (np.ndarray): 2D frame data
+            threshold (float): Drempel voor significante activiteit
+            
+        Returns:
+            np.ma.MaskedArray: Masked array waar lage waarden transparant zijn
+        """
+        # Mask pixels onder de drempel (deze worden transparant)
+        mask = frame_data < threshold
+        
+        # Creëer masked array
+        masked_data = np.ma.masked_where(mask, frame_data)
+        
+        return masked_data
+    
     def _validate_input(self, data: np.ndarray) -> bool:
         """
         Private methode voor input validatie.
@@ -216,6 +262,10 @@ class BewegendHersenAnimatie:
         # Bepaal kleurschaal range voor consistente visualisatie
         vmin, vmax = self.data.min(), self.data.max()
         
+        # Bereken activiteit drempel
+        threshold = self._calculate_activity_threshold(self.data)
+        print(f"Activiteit drempel: {threshold:.3f} (toon alleen waarden > {threshold:.3f})")
+        
         # Als er een achtergrond is, toon deze eerst
         if self.background_data is not None:
             try:
@@ -234,28 +284,56 @@ class BewegendHersenAnimatie:
                 warnings.warn(f"Kon achtergrond niet toevoegen: {e}. Gebruik normale visualisatie.")
                 self.background_data = None
         
-        # Initiële fMRI data frame (als overlay of standalone)
-        self.im = self.ax.imshow(self.data[:, :, 0], 
-                                cmap=self.colormap,
-                                vmin=vmin, vmax=vmax,
-                                aspect='equal',
-                                interpolation='bilinear',
-                                alpha=self.overlay_alpha if self.background_data is not None else 1.0)
+        # Initiële fMRI data frame met threshold-based masking
+        initial_frame = self.data[:, :, 0]
+        
+        if self.background_data is not None:
+            # Voor overlay: gebruik masked array om lage waarden transparant te maken
+            masked_initial = self._create_masked_overlay_data(initial_frame, threshold)
+            
+            self.im = self.ax.imshow(masked_initial, 
+                                    cmap=self.colormap,
+                                    vmin=threshold,  # Start colormap bij threshold
+                                    vmax=vmax,
+                                    aspect='equal',
+                                    interpolation='bilinear',
+                                    alpha=self.overlay_alpha)
+        else:
+            # Voor standalone: toon alle data normaal
+            self.im = self.ax.imshow(initial_frame, 
+                                    cmap=self.colormap,
+                                    vmin=vmin, vmax=vmax,
+                                    aspect='equal',
+                                    interpolation='bilinear',
+                                    alpha=1.0)
         
         # Colorbar toevoegen (alleen voor fMRI data)
         if show_colorbar:
             cbar = plt.colorbar(self.im, ax=self.ax)
             cbar.set_label('Activiteit Intensiteit', rotation=270, labelpad=20)
+            
+            # Voor overlay mode: toon threshold info in colorbar
+            if self.background_data is not None:
+                cbar.ax.text(0.5, -0.1, f'Drempel: {threshold:.2f}', 
+                           transform=cbar.ax.transAxes, ha='center', fontsize=8)
         
         # Animatie functie
         def animate(frame):
             """Update functie voor animatie frames."""
-            self.im.set_array(self.data[:, :, frame])
+            frame_data = self.data[:, :, frame]
+            
+            if self.background_data is not None:
+                # Voor overlay: gebruik masked array
+                masked_frame = self._create_masked_overlay_data(frame_data, threshold)
+                self.im.set_array(masked_frame)
+            else:
+                # Voor standalone: normale update
+                self.im.set_array(frame_data)
             
             # Update titel met frame informatie
             frame_title = f"{title} - Frame {frame + 1}/{self.data.shape[2]}"
             if self.background_data is not None:
-                frame_title += f" (Overlay α={self.overlay_alpha})"
+                frame_title += f" (Overlay α={self.overlay_alpha}, τ={threshold:.2f})"
             
             self.ax.set_title(frame_title)
             
@@ -350,7 +428,8 @@ def maak_animatie_met_achtergrond(numpy_array: np.ndarray,
                                  output_path: Optional[str] = None,
                                  overlay_alpha: float = 0.7,
                                  colormap: str = 'hot',
-                                 interval: int = 100) -> animation.FuncAnimation:
+                                 interval: int = 100,
+                                 activity_threshold: Optional[float] = None) -> animation.FuncAnimation:
     """
     Convenience functie voor het maken van een fMRI animatie met hersenachtergrond.
     
@@ -361,6 +440,7 @@ def maak_animatie_met_achtergrond(numpy_array: np.ndarray,
         overlay_alpha (float): Transparantie van fMRI overlay (0.0-1.0)
         colormap (str): Matplotlib colormap voor fMRI data
         interval (int): Tijd tussen frames in ms
+        activity_threshold (float, optional): Drempel voor significante activiteit
         
     Returns:
         matplotlib.animation.FuncAnimation: Animatie object
@@ -373,7 +453,8 @@ def maak_animatie_met_achtergrond(numpy_array: np.ndarray,
         colormap=colormap, 
         interval=interval,
         background_image=background_path,
-        overlay_alpha=overlay_alpha
+        overlay_alpha=overlay_alpha,
+        activity_threshold=activity_threshold
     )
     animatie.load_data(numpy_array)
     return animatie.create_animation(output_path=output_path)

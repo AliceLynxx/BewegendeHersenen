@@ -9,6 +9,22 @@ Hoofdmodule bewegende_hersenen.py geïmplementeerd met BewegendHersenAnimatie kl
 ## ✅ Voltooid: Stap 3 - Werkend demo voorbeeld
 Demo.py geïmplementeerd met realistische fMRI-achtige test data generatie, basis en geavanceerde animatie demonstraties, verschillende colormaps, GIF/MP4 export, frame extractie en uitgebreide educatieve comments. Volledig werkende demo suite voor snelle start gebruikers.
 
+## ✅ Voltooid: Bugfix #21 - Transparante plasma overlay
+**Probleem**: Achtergrond werd overschreven door blauwe overlay in plaats van alleen plasma animatie te tonen.
+
+**Oplossing**: Threshold-based transparency geïmplementeerd:
+- Nieuwe `activity_threshold` parameter voor configureerbare activiteit drempel
+- Masked arrays gebruiken om lage waarden transparant te maken
+- Automatische threshold berekening (75e percentiel) als standaard
+- Behoud van grijstinten achtergrond zichtbaarheid
+- Alleen significante fMRI activiteit wordt getoond als plasma kleuren
+
+**Bestanden gewijzigd**:
+- bewegende_hersenen.py: Nieuwe threshold functionaliteit
+- test_bugfix_21.py: Uitgebreide test suite voor validatie
+
+**Impact**: Core overlay functionaliteit nu correct werkend, achtergrond blijft zichtbaar.
+
 ## Stap 4: Basis documentatie en gebruiksvoorbeelden (MUST-HAVE)
 **Omschrijving**: Uitbreiding van documentatie met praktische gebruiksvoorbeelden.
 
@@ -22,5 +38,5 @@ Demo.py geïmplementeerd met realistische fMRI-achtige test data generatie, basi
 
 **Acties**:
 - Voeg code voorbeelden toe
-- Documenteer alle publieke methoden
+- Documenteer alle publieke methoden (inclusief nieuwe threshold parameter)
 - Voeg visuele voorbeelden toe (screenshots van animaties)
