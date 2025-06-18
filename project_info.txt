@@ -38,7 +38,7 @@ Eenvoudige modulaire opbouw:
 ## Module status en functionaliteit
 
 ### bewegende_hersenen.py
-- **Status**: ✅ Voltooid (inclusief hersenachtergrond functionaliteit)
+- **Status**: ✅ Voltooid (inclusief statische achtergrond functionaliteit v1.1)
 - **Pad**: /bewegende_hersenen.py
 - **Functionaliteit**: 
   - Hoofdklasse BewegendHersenAnimatie met volledige implementatie
@@ -47,33 +47,40 @@ Eenvoudige modulaire opbouw:
   - create_animation() methode voor fMRI-achtige animaties met optionele achtergrond overlay
   - Automatische schaling van achtergrond naar fMRI data dimensies
   - Instelbare overlay transparantie (overlay_alpha parameter)
+  - Threshold-based transparency voor significante activiteit (activity_threshold parameter)
   - Ondersteuning voor GIF en MP4 export
   - Brain-georiënteerde colormaps (hot, plasma, inferno, viridis)
   - Error handling en input validatie
   - Convenience functie maak_snelle_animatie()
-  - Nieuwe convenience functie maak_animatie_met_achtergrond()
+  - Convenience functie maak_animatie_met_achtergrond()
+  - **NIEUW v1.1**: Helper functie zoek_standaard_achtergrond() voor automatische detectie
+  - **NIEUW v1.1**: Convenience functie maak_animatie_met_statische_achtergrond() met automatische achtergrond detectie
 - **Afhankelijkheden**: matplotlib, numpy, scipy
 
 ### demo.py
-- **Status**: ✅ Voltooid (inclusief hersenachtergrond demonstraties)
+- **Status**: ✅ Voltooid (inclusief statische achtergrond demonstraties v1.1)
 - **Pad**: /demo.py
 - **Functionaliteit**:
   - Realistische fMRI-achtige test data generatie met generate_brain_like_data()
   - create_sample_brain_background() voor voorbeeld hersenachtergrond generatie
+  - **NIEUW v1.1**: create_brain_background_advanced() voor geavanceerde statische achtergronden
   - Basis animatie demonstratie (demo_basic_animation)
-  - Nieuwe hersenachtergrond overlay demonstratie (demo_background_overlay)
+  - Hersenachtergrond overlay demonstratie (demo_background_overlay)
+  - **NIEUW v1.1**: Statische achtergrond demonstratie (demo_statische_achtergrond)
   - Geavanceerde features demo met verschillende colormaps (demo_advanced_features)
   - Convenience functie demonstratie (demo_convenience_function)
   - Demonstratie van verschillende overlay transparantie niveaus
   - Vergelijkingsplot functionaliteit voor achtergrond vs overlay
-  - Educatieve tips en gebruiksaanwijzingen (inclusief achtergrond tips)
+  - **NIEUW v1.1**: Vergelijking tussen statische en gegenereerde achtergronden
+  - **NIEUW v1.1**: Error handling demonstratie voor ontbrekende bestanden
+  - Educatieve tips en gebruiksaanwijzingen (inclusief statische achtergrond tips)
   - Complete workflow van data generatie tot animatie export
   - Ondersteuning voor GIF en MP4 export
   - Frame extractie demonstratie
 - **Afhankelijkheden**: bewegende_hersenen.py, numpy, matplotlib, scipy
 
 ### demo_rennend_mannetje.py
-- **Status**: ✅ Voltooid en Verbeterd (HOGE RESOLUTIE versie)
+- **Status**: ✅ Voltooid en Verbeterd (HOGE RESOLUTIE versie v1.1)
 - **Pad**: /demo_rennend_mannetje.py
 - **Functionaliteit**:
   - Creatieve demonstratie met rennend figuur door hersenen
@@ -102,13 +109,65 @@ Eenvoudige modulaire opbouw:
 - **Afhankelijkheden**: bewegende_hersenen.py, numpy, matplotlib
 
 ### requirements.txt
-- **Status**: ✅ Voltooid (bijgewerkt met scipy)
+- **Status**: ✅ Voltooid (bijgewerkt met scipy v1.1)
 - **Pad**: /requirements.txt  
 - **Functionaliteit**: Lijst van benodigde packages (numpy>=1.20.0, matplotlib>=3.5.0, scipy>=1.7.0)
 - **Afhankelijkheden**: Geen
 
 ### README.md
-- **Status**: ✅ Basis voltooid (installatie instructies toegevoegd)
+- **Status**: ✅ Voltooid (volledige professionele documentatie v1.1)
 - **Pad**: /README.md
-- **Functionaliteit**: Project documentatie, installatie instructies, gebruiksvoorbeelden
+- **Functionaliteit**: 
+  - Complete project documentatie met installatie instructies
+  - Uitgebreide gebruiksvoorbeelden voor alle functionaliteit
+  - **NIEUW v1.1**: Statische achtergrond ondersteuning documentatie
+  - API referentie voor alle publieke methoden
+  - Troubleshooting sectie met oplossingen voor veelvoorkomende problemen
+  - Tips & Best Practices voor optimale resultaten
+  - Colormap opties en bestandsformaat ondersteuning
+  - Demo script instructies
+  - Doelgroep informatie en contact details
 - **Afhankelijkheden**: Geen
+
+### test_bugfix_21.py
+- **Status**: ✅ Voltooid (test suite voor threshold transparency)
+- **Pad**: /test_bugfix_21.py
+- **Functionaliteit**:
+  - Test script voor bugfix #21 threshold-based transparency
+  - Validatie van transparante plasma overlay functionaliteit
+  - Vergelijking voor/na situatie
+  - Verificatie dat achtergrond zichtbaar blijft
+  - Demonstratie van significante activiteit visualisatie
+- **Afhankelijkheden**: bewegende_hersenen.py, numpy, matplotlib
+
+## 🎯 Project Status: VOLTOOID v1.1
+
+**BewegendeHersenen v1.1** is een volwassen, professionele Python library met:
+
+### ✅ Kern Functionaliteit
+- Volledige fMRI-achtige animatie ondersteuning
+- Hersenachtergrond overlay met transparantie controle
+- Threshold-based significance visualization
+- Hoge resolutie GIF/MP4 export
+
+### ✅ Gebruiksvriendelijkheid
+- Convenience functies voor snelle implementatie
+- Automatische statische achtergrond detectie
+- Uitgebreide error handling en validatie
+- Volledige backward compatibility
+
+### ✅ Professionaliteit
+- Complete documentatie met API referentie
+- Troubleshooting ondersteuning
+- Educatieve demo suite
+- Tips & Best Practices
+
+### ✅ Flexibiliteit
+- Meerdere colormap opties
+- Configureerbare parameters
+- Verschillende export formaten
+- Creatieve visualisatie mogelijkheden
+
+**Geschikt voor**: Neurowetenschappers, onderzoekers, studenten, data scientists en iedereen die professionele hersenvisualisaties wil maken.
+
+**Unieke waarde**: Eenvoudigste manier om fMRI-achtige animaties te maken zonder complexe setup, met professionele resultaten en volledige controle over visualisatie parameters.
