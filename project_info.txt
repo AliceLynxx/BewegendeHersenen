@@ -73,22 +73,32 @@ Eenvoudige modulaire opbouw:
 - **Afhankelijkheden**: bewegende_hersenen.py, numpy, matplotlib, scipy
 
 ### demo_rennend_mannetje.py
-- **Status**: ✅ Voltooid en Verbeterd (realistische vorm en grijstinten achtergrond)
+- **Status**: ✅ Voltooid en Verbeterd (HOGE RESOLUTIE versie)
 - **Pad**: /demo_rennend_mannetje.py
 - **Functionaliteit**:
   - Creatieve demonstratie met rennend figuur door hersenen
+  - **HOGE RESOLUTIE**: Verdubbelde pixeldichtheid (160x160 vs 80x80 pixels)
+  - **HOGE RESOLUTIE**: Verhoogde DPI (200 vs 120) voor scherpere weergave
+  - **HOGE RESOLUTIE**: Groter sprite (12x12 vs 6x6) voor betere zichtbaarheid
   - **VERBETERD**: create_running_figure_sprite() met realistische schuine armen en natuurlijke rennende poses
   - **VERBETERD**: 8-frame animatiecyclus voor vloeiendere beweging
   - **VERBETERD**: create_brain_background_advanced() voor grijstinten achtergrond met hoog contrast
   - create_brain_path() voor smooth bewegingspad door hersengebieden
   - generate_running_animation_data() voor rennende figuur animatie data
-  - Bewegingspad visualisatie en analyse plots
-  - Vergelijkingsplots van verschillende animatie aspecten
+  - Bewegingspad visualisatie en analyse plots (hoge resolutie)
+  - Vergelijkingsplots van verschillende animatie aspecten (hoge resolutie)
   - Educatieve annotaties over hersengebieden
   - **BEHOUDEN**: Geel/rood/oranje kleuren voor het mannetje (plasma colormap)
+  - **BEHOUDEN**: Animatiesnelheid en timing (100ms interval, 10 FPS)
   - **VERBETERD**: Betere zichtbaarheid door contrast tussen grijze achtergrond en gekleurde figuur
+  - **GEOPTIMALISEERD**: Balans tussen scherpte en bestandsgrootte voor web gebruik
   - Speelse en presentatie-vriendelijke visualisatie
   - Demonstreert creatief gebruik van de BewegendeHersenen toolkit
+- **Output bestanden**:
+  - rennend_mannetje_door_hersenen.gif (HOGE RESOLUTIE)
+  - rennend_mannetje_brain_background_hd.png (hoge resolutie achtergrond)
+  - rennend_mannetje_vergelijking_hd.png (hoge resolutie analyse)
+  - rennend_mannetje_bewegingspad_hd.png (hoge resolutie pad visualisatie)
 - **Afhankelijkheden**: bewegende_hersenen.py, numpy, matplotlib
 
 ### requirements.txt
