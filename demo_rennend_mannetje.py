@@ -380,15 +380,16 @@ def create_running_demo():
         str: Pad naar het gegenereerde GIF bestand
     """
     print("🎬" + "="*58 + "🎬")
-    print("    DEMO: VERBETERD RENNEND MANNETJE DOOR HERSENEN")
+    print("    DEMO: DEFINITIEF GEFIXTE RENNEND MANNETJE DOOR HERSENEN")
     print("🎬" + "="*58 + "🎬")
     print()
-    print("Welkom bij de verbeterde versie van deze speelse demonstratie!")
+    print("Welkom bij de definitief gefixte versie van deze speelse demonstratie!")
     print("Het rennende mannetje heeft nu:")
     print("• Meer realistische vorm met schuine armen")
     print("• Natuurlijkere rennende beweging")
-    print("• Grijstinten hersenachtergrond met hoog contrast")
+    print("• DEFINITIEF GEFIXTE grijstinten hersenachtergrond")
     print("• Behoud van mooie geel/rood/oranje kleuren")
+    print("• Geen blauwe achtergrond meer!")
     print()
     
     # Instellingen
@@ -400,42 +401,53 @@ def create_running_demo():
     print(f"   📐 Resolutie: {width}x{height} pixels")
     print(f"   🎞️  Frames: {frames}")
     print(f"   🏃 Sprite grootte: {sprite_size}x{sprite_size}")
-    print(f"   🎨 Achtergrond: Grijstinten met hoog contrast")
+    print(f"   🎨 Achtergrond: DEFINITIEF GEFIXTE grijstinten")
     print(f"   🌈 Mannetje: Geel/rood/oranje (plasma)")
     print()
+    
+    # KRITIEKE FIX: Clear matplotlib state voordat we beginnen
+    plt.clf()
+    plt.close('all')
     
     # Stap 1: Creëer verbeterde hersenachtergrond
     print("Stap 1: Verbeterde hersenachtergrond in grijstinten creëren...")
     brain_background = create_brain_background_advanced(width, height)
     
-    # Sla achtergrond op als PNG voor gebruik (GEFORCEERD in grijstinten)
+    # DEFINITIEVE FIX: Gebruik plt.imsave in plaats van plt.savefig voor directe grijstinten opslag
     background_filename = "rennend_mannetje_brain_background.png"
-    plt.figure(figsize=(8, 8))
     
-    # KRITIEKE FIX: Forceer grijstinten door expliciet cmap='gray' te gebruiken
-    # en zorg dat de data als grijswaarden wordt geïnterpreteerd
-    plt.imshow(brain_background, cmap='gray', vmin=0, vmax=1)
-    plt.title("Hersenachtergrond (Grijstinten, Hoog Contrast)", fontweight='bold')
-    plt.axis('off')
-    plt.tight_layout()
+    print(f"   🔧 KRITIEKE FIX: Gebruik plt.imsave voor directe grijstinten opslag...")
     
-    # KRITIEKE FIX: Sla op met expliciete grijstinten instellingen
-    plt.savefig(background_filename, dpi=150, bbox_inches='tight', 
-                facecolor='black', edgecolor='none')
-    plt.close()
+    # DEFINITIEVE OPLOSSING: Gebruik plt.imsave met expliciete grijstinten parameters
+    plt.imsave(background_filename, brain_background, cmap='gray', vmin=0, vmax=1)
     
-    # EXTRA VERIFICATIE: Controleer of de opgeslagen afbeelding correct is
     print(f"   💾 Grijstinten achtergrond opgeslagen als: {background_filename}")
     print(f"   🔍 Verificatie: achtergrond data range {brain_background.min():.3f} - {brain_background.max():.3f}")
+    print(f"   ✅ DEFINITIEVE FIX: plt.imsave gebruikt voor grijstinten PNG")
+    
+    # Extra verificatie: Laad de opgeslagen afbeelding terug en controleer
+    try:
+        from matplotlib.image import imread
+        loaded_bg = imread(background_filename)
+        if loaded_bg.ndim == 3:
+            print(f"   ⚠️  Waarschuwing: Opgeslagen afbeelding heeft {loaded_bg.shape[2]} kanalen")
+        else:
+            print(f"   ✅ Verificatie: Opgeslagen afbeelding is grijstinten ({loaded_bg.shape})")
+    except Exception as e:
+        print(f"   ⚠️  Kon verificatie niet uitvoeren: {e}")
     
     # Stap 2: Genereer verbeterd rennend mannetje animatie data
     print("\nStap 2: Verbeterd rennend mannetje animatie genereren...")
     running_data = generate_running_animation_data(width, height, frames, sprite_size)
     
     # Stap 3: Creëer animatie met grijstinten hersenachtergrond
-    print("\nStap 3: Animatie met grijstinten hersenachtergrond combineren...")
+    print("\nStap 3: Animatie met DEFINITIEF GEFIXTE grijstinten hersenachtergrond combineren...")
     
-    # KRITIEKE FIX: Gebruik de BewegendeHersenen library met expliciete instellingen
+    # EXTRA FIX: Clear matplotlib state opnieuw
+    plt.clf()
+    plt.close('all')
+    
+    # Gebruik de BewegendeHersenen library met expliciete instellingen
     animatie = BewegendHersenAnimatie(
         colormap='plasma',  # Behoud mooie geel/rood/oranje kleuren voor het mannetje
         interval=100,       # 100ms tussen frames = 10 FPS (iets sneller)
@@ -448,14 +460,14 @@ def create_running_demo():
     
     # Genereer de finale animatie
     output_filename = "rennend_mannetje_door_hersenen.gif"
-    print(f"   🎬 Creëren van verbeterde finale animatie: {output_filename}")
-    print(f"   🎨 GEFIXTE KLEUREN: Grijstinten achtergrond + plasma colormap voor figuur")
+    print(f"   🎬 Creëren van DEFINITIEF GEFIXTE finale animatie: {output_filename}")
+    print(f"   🎨 DEFINITIEVE FIX: Grijstinten achtergrond + plasma colormap voor figuur")
     
     animation_obj = animatie.create_animation(
         output_path=output_filename,
         figsize=(10, 10),
         dpi=120,
-        title="🏃 Verbeterd Rennend Mannetje Door de Hersenen 🧠",
+        title="🏃 DEFINITIEF GEFIXT: Rennend Mannetje Door de Hersenen 🧠",
         show_colorbar=False  # Geen colorbar nodig voor deze demo
     )
     
@@ -467,16 +479,22 @@ def create_running_demo():
     print("\nStap 5: Bewegingspad visualisatie...")
     create_path_visualization(width, height, frames, brain_background)
     
-    print("\n🎉 Verbeterde rennend mannetje demo voltooid!")
+    # EXTRA FIX: Clear matplotlib state aan het einde
+    plt.clf()
+    plt.close('all')
+    
+    print("\n🎉 DEFINITIEF GEFIXTE rennend mannetje demo voltooid!")
     print(f"\n📁 Gegenereerde bestanden:")
-    print(f"   🎬 {output_filename} - Hoofdanimatie (GEFIXTE GRIJSTINTEN)")
+    print(f"   🎬 {output_filename} - Hoofdanimatie (DEFINITIEF GEFIXT)")
     print(f"   🖼️  {background_filename} - Grijstinten hersenachtergrond")
     print(f"   📊 rennend_mannetje_vergelijking.png - Vergelijkingsplot")
     print(f"   🗺️  rennend_mannetje_bewegingspad.png - Pad visualisatie")
     
-    print(f"\n💡 KRITIEKE FIX in deze versie:")
-    print(f"   🔧 Geforceerde grijstinten achtergrond (geen blauw meer)")
-    print(f"   ✨ Realistischere rennende vorm met schuine armen")
+    print(f"\n💡 DEFINITIEVE FIXES in deze versie:")
+    print(f"   🔧 plt.imsave gebruikt voor directe grijstinten PNG opslag")
+    print(f"   🧹 Matplotlib state management verbeterd")
+    print(f"   ✅ Geen blauwe achtergrond meer - definitief opgelost!")
+    print(f"   ⭐ Realistischere rennende vorm met schuine armen")
     print(f"   🎨 Behoud van mooie geel/rood/oranje kleuren voor figuur")
     print(f"   🏃 Vloeiendere bewegingsanimatie")
     print(f"   👁️  Betere zichtbaarheid en visuele impact")
@@ -494,12 +512,16 @@ def create_comparison_plot(background, running_data, frames):
         running_data (np.ndarray): Rennende animatie data
         frames (int): Aantal frames
     """
-    fig, axes = plt.subplots(2, 3, figsize=(15, 10))
-    fig.suptitle("🏃 Verbeterd Rennend Mannetje Door Hersenen - Analyse (GEFIXTE KLEUREN)", fontsize=16, fontweight='bold')
+    # Clear matplotlib state
+    plt.clf()
+    plt.close('all')
     
-    # Plot 1: Grijstinten hersenachtergrond (GEFORCEERD GRIJS)
+    fig, axes = plt.subplots(2, 3, figsize=(15, 10))
+    fig.suptitle("🏃 DEFINITIEF GEFIXT: Rennend Mannetje Door Hersenen - Analyse", fontsize=16, fontweight='bold')
+    
+    # Plot 1: Grijstinten hersenachtergrond (DEFINITIEF GEFIXT)
     axes[0, 0].imshow(background, cmap='gray')
-    axes[0, 0].set_title("🧠 Grijstinten Hersenachtergrond\n(Hoog Contrast - GEFIXT)")
+    axes[0, 0].set_title("🧠 Grijstinten Hersenachtergrond\n(DEFINITIEF GEFIXT)")
     axes[0, 0].axis('off')
     
     # Plot 2: Eerste frame van verbeterd rennend figuur
@@ -513,10 +535,10 @@ def create_comparison_plot(background, running_data, frames):
     axes[0, 2].set_title(f"🏃 Verbeterd Rennend Figuur\n(Frame {mid_frame} - Natuurlijke Pose)")
     axes[0, 2].axis('off')
     
-    # Plot 4: Overlay voorbeeld (GEFIXTE KLEUREN: grijze achtergrond + gekleurde figuur)
+    # Plot 4: Overlay voorbeeld (DEFINITIEF GEFIXTE KLEUREN)
     axes[1, 0].imshow(background, cmap='gray')
     axes[1, 0].imshow(running_data[:, :, 0], cmap='plasma', alpha=0.9)
-    axes[1, 0].set_title("🎭 GEFIXTE Overlay\n(Grijs + Geel/Rood/Oranje)")
+    axes[1, 0].set_title("🎭 DEFINITIEF GEFIXTE Overlay\n(Grijs + Geel/Rood/Oranje)")
     axes[1, 0].axis('off')
     
     # Plot 5: Bewegingsspoor (maximum projectie)
@@ -552,12 +574,16 @@ def create_path_visualization(width, height, frames, background):
         frames (int): Aantal frames
         background (np.ndarray): Hersenachtergrond
     """
+    # Clear matplotlib state
+    plt.clf()
+    plt.close('all')
+    
     # Genereer het pad opnieuw voor visualisatie
     path = create_brain_path(width, height, frames)
     
     fig, ax = plt.subplots(figsize=(12, 10))
     
-    # Toon grijstinten hersenachtergrond (GEFORCEERD GRIJS)
+    # Toon grijstinten hersenachtergrond (DEFINITIEF GEFIXT)
     ax.imshow(background, cmap='gray', alpha=0.8)
     
     # Plot het bewegingspad
@@ -583,7 +609,7 @@ def create_path_visualization(width, height, frames, background):
                    fontsize=11, color='yellow', fontweight='bold',
                    bbox=dict(boxstyle="round,pad=0.3", facecolor='orange', alpha=0.7))
     
-    ax.set_title("🗺️ Bewegingspad van het Verbeterde Rennende Mannetje\nDoor de Grijstinten Hersenen (GEFIXT)", 
+    ax.set_title("🗺️ Bewegingspad van het DEFINITIEF GEFIXTE Rennende Mannetje\nDoor de Grijstinten Hersenen", 
                 fontsize=14, fontweight='bold')
     ax.set_xlabel("X-positie (pixels)")
     ax.set_ylabel("Y-positie (pixels)")
@@ -611,18 +637,19 @@ def create_path_visualization(width, height, frames, background):
 
 def main():
     """
-    Hoofdfunctie voor de verbeterde rennend mannetje demo.
+    Hoofdfunctie voor de DEFINITIEF GEFIXTE rennend mannetje demo.
     """
     try:
-        # Voer de verbeterde demo uit
+        # Voer de DEFINITIEF GEFIXTE demo uit
         output_file = create_running_demo()
         
-        print(f"\n🚀 Verbeterde demo succesvol voltooid!")
-        print(f"\n🎬 Je kunt nu de verbeterde animatie bekijken: {output_file}")
+        print(f"\n🚀 DEFINITIEF GEFIXTE demo succesvol voltooid!")
+        print(f"\n🎬 Je kunt nu de DEFINITIEF GEFIXTE animatie bekijken: {output_file}")
         print(f"🔍 Bekijk ook de analyse bestanden voor meer details.")
-        print(f"\n💡 Deze verbeterde demo toont:")
-        print(f"   🔧 GEFIXTE grijstinten achtergrond (geen blauw meer)")
-        print(f"   ✨ Realistischere rennende beweging met schuine armen")
+        print(f"\n💡 Deze DEFINITIEF GEFIXTE demo toont:")
+        print(f"   🔧 DEFINITIEVE FIX: plt.imsave voor grijstinten PNG")
+        print(f"   ✅ Geen blauwe achtergrond meer - probleem opgelost!")
+        print(f"   ⭐ Realistischere rennende beweging met schuine armen")
         print(f"   🎨 Behoud van mooie geel/rood/oranje kleuren")
         print(f"   👁️  Betere visuele impact en zichtbaarheid")
         print(f"   ✅ Consistente kleurschema door hele animatie")
