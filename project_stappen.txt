@@ -25,6 +25,23 @@ Demo.py geïmplementeerd met realistische fMRI-achtige test data generatie, basi
 
 **Impact**: Core overlay functionaliteit nu correct werkend, achtergrond blijft zichtbaar.
 
+## ✅ Voltooid: Enhancement #23 - Hoge resolutie GIF animatie
+**Probleem**: De rennend_mannetje_door_hersenen.gif had lage pixeldichtheid waardoor de afbeelding onscherp oogde.
+
+**Oplossing**: Pixeldichtheid verhoogd voor scherpere weergave:
+- Resolutie verdubbeld van 80x80 naar 160x160 pixels
+- DPI verhoogd van 120 naar 200 voor professionele kwaliteit
+- Sprite grootte verdubbeld van 6x6 naar 12x12 voor betere zichtbaarheid
+- Kleurstelling, animatiesnelheid en timing behouden
+- Geoptimaliseerd voor web gebruik (balans tussen scherpte en bestandsgrootte)
+- Alle output bestanden krijgen "_hd" suffix voor hoge resolutie versies
+
+**Bestanden gewijzigd**:
+- demo_rennend_mannetje.py: Verhoogde resolutie parameters en output bestandsnamen
+- project_info.txt: Documentatie bijgewerkt met hoge resolutie specificaties
+
+**Impact**: Professionele, scherpe GIF-animatie geschikt voor presentaties en web gebruik.
+
 ## Stap 4: Basis documentatie en gebruiksvoorbeelden (MUST-HAVE)
 **Omschrijving**: Uitbreiding van documentatie met praktische gebruiksvoorbeelden.
 
