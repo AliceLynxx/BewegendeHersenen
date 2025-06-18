@@ -380,56 +380,58 @@ def create_running_demo():
         str: Pad naar het gegenereerde GIF bestand
     """
     print("🎬" + "="*58 + "🎬")
-    print("    DEMO: VERBETERD RENNEND MANNETJE DOOR HERSENEN")
+    print("    DEMO: HOGE RESOLUTIE RENNEND MANNETJE DOOR HERSENEN")
     print("🎬" + "="*58 + "🎬")
     print()
-    print("Welkom bij de verbeterde versie van deze speelse demonstratie!")
+    print("Welkom bij de hoge resolutie versie van deze speelse demonstratie!")
     print("Het rennende mannetje heeft nu:")
-    print("• Meer realistische vorm met schuine armen")
-    print("• Natuurlijkere rennende beweging")
+    print("• Verdubbelde resolutie (160x160 pixels)")
+    print("• Verhoogde DPI (200) voor scherpere weergave")
+    print("• Groter sprite (12x12) voor betere zichtbaarheid")
     print("• Grijstinten hersenachtergrond met hoog contrast")
     print("• Behoud van mooie geel/rood/oranje kleuren")
     print()
     
-    # Instellingen
-    width, height = 80, 80
-    frames = 64  # Iets meer frames voor vloeiendere beweging
-    sprite_size = 6
+    # Instellingen - VERHOOGDE RESOLUTIE
+    width, height = 160, 160  # Verdubbeld van 80x80 naar 160x160
+    frames = 64  # Behoud aantal frames voor zelfde animatiesnelheid
+    sprite_size = 12  # Verdubbeld van 6 naar 12 voor betere zichtbaarheid
     
-    print("⚙️  Verbeterde animatie instellingen:")
-    print(f"   📐 Resolutie: {width}x{height} pixels")
+    print("⚙️  Hoge resolutie animatie instellingen:")
+    print(f"   📐 Resolutie: {width}x{height} pixels (VERDUBBELD)")
     print(f"   🎞️  Frames: {frames}")
-    print(f"   🏃 Sprite grootte: {sprite_size}x{sprite_size}")
+    print(f"   🏃 Sprite grootte: {sprite_size}x{sprite_size} (VERDUBBELD)")
     print(f"   🎨 Achtergrond: Grijstinten met hoog contrast")
     print(f"   🌈 Mannetje: Geel/rood/oranje (plasma)")
+    print(f"   🔍 DPI: 200 (VERHOOGD voor scherpere weergave)")
     print()
     
-    # Stap 1: Creëer verbeterde hersenachtergrond
-    print("Stap 1: Verbeterde hersenachtergrond in grijstinten creëren...")
+    # Stap 1: Creëer verbeterde hersenachtergrond met hogere resolutie
+    print("Stap 1: Hoge resolutie hersenachtergrond in grijstinten creëren...")
     brain_background = create_brain_background_advanced(width, height)
     
     # Sla achtergrond op als PNG voor gebruik (in grijstinten)
-    background_filename = "rennend_mannetje_brain_background.png"
-    plt.figure(figsize=(8, 8))
+    background_filename = "rennend_mannetje_brain_background_hd.png"
+    plt.figure(figsize=(10, 10))  # Groter figuur voor hoge resolutie
     plt.imshow(brain_background, cmap='gray', vmin=0, vmax=1)
-    plt.title("Hersenachtergrond (Grijstinten, Hoog Contrast)", fontweight='bold')
+    plt.title("Hersenachtergrond (Hoge Resolutie, Grijstinten, Hoog Contrast)", fontweight='bold')
     plt.axis('off')
     plt.tight_layout()
-    plt.savefig(background_filename, dpi=150, bbox_inches='tight', facecolor='black')
+    plt.savefig(background_filename, dpi=200, bbox_inches='tight', facecolor='black')  # Verhoogde DPI
     plt.close()
-    print(f"   💾 Grijstinten achtergrond opgeslagen als: {background_filename}")
+    print(f"   💾 Hoge resolutie grijstinten achtergrond opgeslagen als: {background_filename}")
     
-    # Stap 2: Genereer verbeterd rennend mannetje animatie data
-    print("\nStap 2: Verbeterd rennend mannetje animatie genereren...")
+    # Stap 2: Genereer hoge resolutie rennend mannetje animatie data
+    print("\nStap 2: Hoge resolutie rennend mannetje animatie genereren...")
     running_data = generate_running_animation_data(width, height, frames, sprite_size)
     
     # Stap 3: Creëer animatie met grijstinten hersenachtergrond
-    print("\nStap 3: Animatie met grijstinten hersenachtergrond combineren...")
+    print("\nStap 3: Hoge resolutie animatie met grijstinten hersenachtergrond combineren...")
     
     # Gebruik de BewegendeHersenen library
     animatie = BewegendHersenAnimatie(
         colormap='plasma',  # Behoud mooie geel/rood/oranje kleuren voor het mannetje
-        interval=100,       # 100ms tussen frames = 10 FPS (iets sneller)
+        interval=100,       # 100ms tussen frames = 10 FPS (behoud animatiesnelheid)
         background_image=background_filename,
         overlay_alpha=0.9   # Rennend figuur goed zichtbaar tegen grijze achtergrond
     )
@@ -437,39 +439,41 @@ def create_running_demo():
     # Laad de rennende data
     animatie.load_data(running_data)
     
-    # Genereer de finale animatie
+    # Genereer de finale animatie met verhoogde DPI
     output_filename = "rennend_mannetje_door_hersenen.gif"
-    print(f"   🎬 Creëren van verbeterde finale animatie: {output_filename}")
+    print(f"   🎬 Creëren van hoge resolutie finale animatie: {output_filename}")
     
     animation_obj = animatie.create_animation(
         output_path=output_filename,
-        figsize=(10, 10),
-        dpi=120,
-        title="🏃 Verbeterd Rennend Mannetje Door de Hersenen 🧠",
+        figsize=(12, 12),  # Groter figuur voor hoge resolutie
+        dpi=200,           # VERHOOGDE DPI van 120 naar 200
+        title="🏃 Hoge Resolutie Rennend Mannetje Door de Hersenen 🧠",
         show_colorbar=False  # Geen colorbar nodig voor deze demo
     )
     
     # Stap 4: Maak een vergelijkingsplot
-    print("\nStap 4: Verbeterde vergelijkingsplot maken...")
+    print("\nStap 4: Hoge resolutie vergelijkingsplot maken...")
     create_comparison_plot(brain_background, running_data, frames)
     
     # Stap 5: Maak een bewegingspad visualisatie
-    print("\nStap 5: Bewegingspad visualisatie...")
+    print("\nStap 5: Hoge resolutie bewegingspad visualisatie...")
     create_path_visualization(width, height, frames, brain_background)
     
-    print("\n🎉 Verbeterde rennend mannetje demo voltooid!")
+    print("\n🎉 Hoge resolutie rennend mannetje demo voltooid!")
     print(f"\n📁 Gegenereerde bestanden:")
-    print(f"   🎬 {output_filename} - Hoofdanimatie (verbeterd)")
-    print(f"   🖼️  {background_filename} - Grijstinten hersenachtergrond")
-    print(f"   📊 rennend_mannetje_vergelijking.png - Vergelijkingsplot")
-    print(f"   🗺️  rennend_mannetje_bewegingspad.png - Pad visualisatie")
+    print(f"   🎬 {output_filename} - Hoofdanimatie (HOGE RESOLUTIE)")
+    print(f"   🖼️  {background_filename} - Hoge resolutie grijstinten hersenachtergrond")
+    print(f"   📊 rennend_mannetje_vergelijking_hd.png - Hoge resolutie vergelijkingsplot")
+    print(f"   🗺️  rennend_mannetje_bewegingspad_hd.png - Hoge resolutie pad visualisatie")
     
-    print(f"\n💡 Verbeteringen in deze versie:")
-    print(f"   ✨ Realistischere rennende vorm met schuine armen")
-    print(f"   🎨 Grijstinten achtergrond met hoog contrast")
+    print(f"\n💡 Verbeteringen in deze hoge resolutie versie:")
+    print(f"   🔍 Verdubbelde pixeldichtheid (160x160 vs 80x80)")
+    print(f"   ✨ Verhoogde DPI (200 vs 120) voor scherpere weergave")
+    print(f"   🏃 Groter rennend figuur (12x12 vs 6x6) voor betere zichtbaarheid")
+    print(f"   🎨 Behoud van grijstinten achtergrond met hoog contrast")
     print(f"   🌈 Behoud van mooie geel/rood/oranje kleuren")
-    print(f"   🏃 Vloeiendere bewegingsanimatie")
-    print(f"   👁️  Betere zichtbaarheid en visuele impact")
+    print(f"   ⚡ Behoud van animatiesnelheid en timing")
+    print(f"   🌐 Geoptimaliseerd voor web gebruik")
     
     return output_filename
 
@@ -483,52 +487,52 @@ def create_comparison_plot(background, running_data, frames):
         running_data (np.ndarray): Rennende animatie data
         frames (int): Aantal frames
     """
-    fig, axes = plt.subplots(2, 3, figsize=(15, 10))
-    fig.suptitle("🏃 Verbeterd Rennend Mannetje Door Hersenen - Analyse", fontsize=16, fontweight='bold')
+    fig, axes = plt.subplots(2, 3, figsize=(18, 12))  # Groter voor hoge resolutie
+    fig.suptitle("🏃 Hoge Resolutie Rennend Mannetje Door Hersenen - Analyse", fontsize=18, fontweight='bold')
     
     # Plot 1: Grijstinten hersenachtergrond
     axes[0, 0].imshow(background, cmap='gray')
-    axes[0, 0].set_title("🧠 Grijstinten Hersenachtergrond\n(Hoog Contrast)")
+    axes[0, 0].set_title("🧠 Hoge Resolutie Grijstinten\nHersenachtergrond (Hoog Contrast)")
     axes[0, 0].axis('off')
     
     # Plot 2: Eerste frame van verbeterd rennend figuur
     axes[0, 1].imshow(running_data[:, :, 0], cmap='plasma')
-    axes[0, 1].set_title("🏃 Verbeterd Rennend Figuur\n(Frame 1 - Schuine Armen)")
+    axes[0, 1].set_title("🏃 Hoge Resolutie Rennend Figuur\n(Frame 1 - Schuine Armen)")
     axes[0, 1].axis('off')
     
     # Plot 3: Midden frame
     mid_frame = frames // 2
     axes[0, 2].imshow(running_data[:, :, mid_frame], cmap='plasma')
-    axes[0, 2].set_title(f"🏃 Verbeterd Rennend Figuur\n(Frame {mid_frame} - Natuurlijke Pose)")
+    axes[0, 2].set_title(f"🏃 Hoge Resolutie Rennend Figuur\n(Frame {mid_frame} - Natuurlijke Pose)")
     axes[0, 2].axis('off')
     
     # Plot 4: Overlay voorbeeld (grijze achtergrond + gekleurde figuur)
     axes[1, 0].imshow(background, cmap='gray')
     axes[1, 0].imshow(running_data[:, :, 0], cmap='plasma', alpha=0.9)
-    axes[1, 0].set_title("🎭 Verbeterde Overlay\n(Grijs + Geel/Rood/Oranje)")
+    axes[1, 0].set_title("🎭 Hoge Resolutie Overlay\n(Grijs + Geel/Rood/Oranje)")
     axes[1, 0].axis('off')
     
     # Plot 5: Bewegingsspoor (maximum projectie)
     movement_trace = np.max(running_data, axis=2)
     axes[1, 1].imshow(background, cmap='gray')
     axes[1, 1].imshow(movement_trace, cmap='plasma', alpha=0.7)
-    axes[1, 1].set_title("🗺️ Bewegingsspoor\n(Max Projectie op Grijs)")
+    axes[1, 1].set_title("🗺️ Hoge Resolutie Bewegingsspoor\n(Max Projectie op Grijs)")
     axes[1, 1].axis('off')
     
     # Plot 6: Intensiteit over tijd
     # Bereken gemiddelde intensiteit per frame
     intensities = [np.sum(running_data[:, :, f]) for f in range(frames)]
     axes[1, 2].plot(intensities, 'orange', linewidth=3, alpha=0.8)
-    axes[1, 2].set_title("📈 Activiteit Over Tijd\n(Verbeterde Beweging)")
+    axes[1, 2].set_title("📈 Activiteit Over Tijd\n(Hoge Resolutie Beweging)")
     axes[1, 2].set_xlabel("Frame")
     axes[1, 2].set_ylabel("Totale Intensiteit")
     axes[1, 2].grid(True, alpha=0.3)
     axes[1, 2].set_facecolor('lightgray')
     
     plt.tight_layout()
-    plt.savefig("rennend_mannetje_vergelijking.png", dpi=150, bbox_inches='tight')
+    plt.savefig("rennend_mannetje_vergelijking_hd.png", dpi=200, bbox_inches='tight')  # Verhoogde DPI
     plt.close()
-    print("   📊 Verbeterde vergelijkingsplot opgeslagen als: rennend_mannetje_vergelijking.png")
+    print("   📊 Hoge resolutie vergelijkingsplot opgeslagen als: rennend_mannetje_vergelijking_hd.png")
 
 
 def create_path_visualization(width, height, frames, background):
@@ -544,7 +548,7 @@ def create_path_visualization(width, height, frames, background):
     # Genereer het pad opnieuw voor visualisatie
     path = create_brain_path(width, height, frames)
     
-    fig, ax = plt.subplots(figsize=(12, 10))
+    fig, ax = plt.subplots(figsize=(14, 12))  # Groter voor hoge resolutie
     
     # Toon grijstinten hersenachtergrond
     ax.imshow(background, cmap='gray', alpha=0.8)
@@ -557,26 +561,26 @@ def create_path_visualization(width, height, frames, background):
     for i in range(len(path) - 1):
         color_intensity = i / len(path)
         ax.plot([x_coords[i], x_coords[i+1]], [y_coords[i], y_coords[i+1]], 
-                color=plt.cm.plasma(color_intensity), linewidth=4, alpha=0.9)
+                color=plt.cm.plasma(color_intensity), linewidth=5, alpha=0.9)  # Dikkere lijn voor hoge resolutie
     
     # Markeer start en eind punten
-    ax.plot(x_coords[0], y_coords[0], 'go', markersize=15, label='🏁 Start', markeredgecolor='white', markeredgewidth=2)
-    ax.plot(x_coords[-1], y_coords[-1], 'ro', markersize=15, label='🎯 Eind', markeredgecolor='white', markeredgewidth=2)
+    ax.plot(x_coords[0], y_coords[0], 'go', markersize=18, label='🏁 Start', markeredgecolor='white', markeredgewidth=3)
+    ax.plot(x_coords[-1], y_coords[-1], 'ro', markersize=18, label='🎯 Eind', markeredgecolor='white', markeredgewidth=3)
     
     # Markeer enkele interessante punten
     waypoint_indices = [len(path)//4, len(path)//2, 3*len(path)//4]
     for i, idx in enumerate(waypoint_indices):
-        ax.plot(x_coords[idx], y_coords[idx], 'yo', markersize=10, alpha=0.9, markeredgecolor='orange', markeredgewidth=2)
+        ax.plot(x_coords[idx], y_coords[idx], 'yo', markersize=12, alpha=0.9, markeredgecolor='orange', markeredgewidth=3)
         ax.annotate(f'Punt {i+1}', (x_coords[idx], y_coords[idx]), 
-                   xytext=(8, 8), textcoords='offset points', 
-                   fontsize=11, color='yellow', fontweight='bold',
-                   bbox=dict(boxstyle="round,pad=0.3", facecolor='orange', alpha=0.7))
+                   xytext=(10, 10), textcoords='offset points', 
+                   fontsize=12, color='yellow', fontweight='bold',
+                   bbox=dict(boxstyle="round,pad=0.4", facecolor='orange', alpha=0.8))
     
-    ax.set_title("🗺️ Bewegingspad van het Verbeterde Rennende Mannetje\nDoor de Grijstinten Hersenen", 
-                fontsize=14, fontweight='bold')
+    ax.set_title("🗺️ Bewegingspad van het Hoge Resolutie Rennende Mannetje\nDoor de Grijstinten Hersenen", 
+                fontsize=16, fontweight='bold')
     ax.set_xlabel("X-positie (pixels)")
     ax.set_ylabel("Y-positie (pixels)")
-    ax.legend(fontsize=12)
+    ax.legend(fontsize=14)
     ax.grid(True, alpha=0.3, color='white')
     
     # Voeg wat annotaties toe over hersengebieden
@@ -588,33 +592,36 @@ def create_path_visualization(width, height, frames, background):
     ]
     
     for x, y, label in annotations:
-        ax.annotate(label, (x, y), xytext=(12, 12), textcoords='offset points',
-                   bbox=dict(boxstyle="round,pad=0.4", facecolor='lightblue', alpha=0.8, edgecolor='navy'),
-                   fontsize=10, ha='center', fontweight='bold')
+        ax.annotate(label, (x, y), xytext=(15, 15), textcoords='offset points',
+                   bbox=dict(boxstyle="round,pad=0.5", facecolor='lightblue', alpha=0.9, edgecolor='navy'),
+                   fontsize=11, ha='center', fontweight='bold')
     
     plt.tight_layout()
-    plt.savefig("rennend_mannetje_bewegingspad.png", dpi=150, bbox_inches='tight')
+    plt.savefig("rennend_mannetje_bewegingspad_hd.png", dpi=200, bbox_inches='tight')  # Verhoogde DPI
     plt.close()
-    print("   🗺️ Bewegingspad visualisatie opgeslagen als: rennend_mannetje_bewegingspad.png")
+    print("   🗺️ Hoge resolutie bewegingspad visualisatie opgeslagen als: rennend_mannetje_bewegingspad_hd.png")
 
 
 def main():
     """
-    Hoofdfunctie voor de verbeterde rennend mannetje demo.
+    Hoofdfunctie voor de hoge resolutie rennend mannetje demo.
     """
     try:
-        # Voer de verbeterde demo uit
+        # Voer de hoge resolutie demo uit
         output_file = create_running_demo()
         
-        print(f"\n🚀 Verbeterde demo succesvol voltooid!")
-        print(f"\n🎬 Je kunt nu de verbeterde animatie bekijken: {output_file}")
+        print(f"\n🚀 Hoge resolutie demo succesvol voltooid!")
+        print(f"\n🎬 Je kunt nu de hoge resolutie animatie bekijken: {output_file}")
         print(f"🔍 Bekijk ook de analyse bestanden voor meer details.")
-        print(f"\n💡 Deze verbeterde demo toont:")
-        print(f"   ✨ Realistischere rennende beweging met schuine armen")
+        print(f"\n💡 Deze hoge resolutie demo toont:")
+        print(f"   🔍 Verdubbelde pixeldichtheid voor scherpere weergave")
+        print(f"   ✨ Verhoogde DPI (200) voor professionele kwaliteit")
+        print(f"   🏃 Groter rennend figuur voor betere zichtbaarheid")
         print(f"   🎨 Grijstinten hersenachtergrond met hoog contrast")
         print(f"   🌈 Behoud van mooie geel/rood/oranje kleuren")
-        print(f"   👁️  Betere visuele impact en zichtbaarheid")
-        print(f"\n🧠 Veel plezier met je eigen hersenvisualisaties!")
+        print(f"   ⚡ Behoud van animatiesnelheid en timing")
+        print(f"   🌐 Geoptimaliseerd voor web gebruik")
+        print(f"\n🧠 Veel plezier met je eigen hoge resolutie hersenvisualisaties!")
         
     except Exception as e:
         print(f"\n❌ Er is een fout opgetreden: {e}")
