@@ -10,6 +10,7 @@ Voor neurowetenschappers, onderzoekers en studenten biedt dit script:
 - Verschillende visualisatie opties en colormaps
 - Voorbeelden van basis en geavanceerde functionaliteit
 - Hersenachtergrond overlay demonstraties
+- Statische achtergrond ondersteuning (NIEUW!)
 - Export naar verschillende formaten (GIF, MP4)
 
 Auteur: BewegendeHersenen Project
@@ -19,7 +20,9 @@ Doel: Educatieve demonstratie en snelle start voor nieuwe gebruikers
 import numpy as np
 import matplotlib.pyplot as plt
 import os
-from bewegende_hersenen import BewegendHersenAnimatie, maak_snelle_animatie, maak_animatie_met_achtergrond
+from bewegende_hersenen import (BewegendHersenAnimatie, maak_snelle_animatie, 
+                               maak_animatie_met_achtergrond, maak_animatie_met_statische_achtergrond,
+                               zoek_standaard_achtergrond)
 
 
 def generate_brain_like_data(width=64, height=64, frames=50, noise_level=0.1):
@@ -154,6 +157,96 @@ def create_sample_brain_background(width=64, height=64, filename="sample_brain_b
     plt.close()
     
     print(f"✅ Voorbeeld hersenachtergrond opgeslagen als: {filename}")
+    return filename
+
+
+def create_brain_background_advanced(width=80, height=80, filename="afbeelding_achtergrond.png"):
+    """
+    Creëer een geavanceerde hersenachtergrond afbeelding met meer detail.
+    Deze wordt opgeslagen als de standaard 'afbeelding_achtergrond.png'.
+    
+    Args:
+        width (int): Breedte van de achtergrond
+        height (int): Hoogte van de achtergrond
+        filename (str): Bestandsnaam voor opslaan
+        
+    Returns:
+        str: Pad naar de gemaakte achtergrond afbeelding
+    """
+    print(f"🧠 Creëren van geavanceerde hersenachtergrond ({width}x{height})...")
+    
+    # Maak een meer realistische hersenvorm
+    y_coords, x_coords = np.ogrid[:height, :width]
+    center_x, center_y = width // 2, height // 2
+    
+    # Creëer complexere hersenvorm
+    # Basis ellips
+    ellipse_a = width * 0.45  # Horizontale radius
+    ellipse_b = height * 0.4   # Verticale radius
+    
+    ellipse = ((x_coords - center_x) / ellipse_a)**2 + ((y_coords - center_y) / ellipse_b)**2
+    brain_mask = ellipse <= 1.0
+    
+    # Voeg inhammen toe voor meer realistische vorm
+    # Linker inham (temporale kwab)
+    left_indent_x = center_x - width * 0.3
+    left_indent_y = center_y + height * 0.1
+    left_indent = ((x_coords - left_indent_x) / (width * 0.15))**2 + ((y_coords - left_indent_y) / (height * 0.2))**2
+    brain_mask = brain_mask & (left_indent > 1.0)
+    
+    # Rechter inham
+    right_indent_x = center_x + width * 0.3
+    right_indent_y = center_y + height * 0.1
+    right_indent = ((x_coords - right_indent_x) / (width * 0.15))**2 + ((y_coords - right_indent_y) / (height * 0.2))**2
+    brain_mask = brain_mask & (right_indent > 1.0)
+    
+    # Creëer complexe interne structuur
+    structure = np.zeros((height, width))
+    
+    # Voeg meerdere lagen van "hersenvouwen" toe
+    for i in range(8):
+        # Verschillende frequenties voor verschillende schalen
+        freq_x = np.random.uniform(0.05, 0.4)
+        freq_y = np.random.uniform(0.05, 0.4)
+        phase_x = np.random.uniform(0, 2*np.pi)
+        phase_y = np.random.uniform(0, 2*np.pi)
+        
+        # Verschillende amplitudes
+        amplitude = np.random.uniform(0.1, 0.4)
+        
+        wave = amplitude * np.sin(freq_x * x_coords + phase_x) * np.sin(freq_y * y_coords + phase_y)
+        structure += wave
+    
+    # Voeg radiale patronen toe (simuleer cortex structuur)
+    distance_from_center = np.sqrt((x_coords - center_x)**2 + (y_coords - center_y)**2)
+    radial_pattern = 0.2 * np.sin(distance_from_center * 0.3) * np.exp(-distance_from_center / (width * 0.3))
+    structure += radial_pattern
+    
+    # Combineer basis vorm met complexe structuur
+    background = np.where(brain_mask, 0.5 + 0.3 * structure, 0.0)
+    
+    # Voeg subtiele ruis toe voor textuur
+    noise = 0.03 * np.random.normal(0, 1, (height, width))
+    background += noise
+    
+    # Voeg gradient toe voor diepte effect
+    gradient_y = (y_coords - height/2) / height
+    gradient_effect = 0.1 * gradient_y
+    background += gradient_effect * brain_mask
+    
+    # Normaliseer naar 0-1 range
+    background = np.clip(background, 0, 1)
+    
+    # Sla op als PNG met hoge kwaliteit
+    plt.figure(figsize=(10, 10))
+    plt.imshow(background, cmap='gray', vmin=0, vmax=1)
+    plt.title("Geavanceerde Hersenachtergrond")
+    plt.axis('off')
+    plt.tight_layout()
+    plt.savefig(filename, dpi=200, bbox_inches='tight', facecolor='black')
+    plt.close()
+    
+    print(f"✅ Geavanceerde hersenachtergrond opgeslagen als: {filename}")
     return filename
 
 
@@ -294,6 +387,157 @@ def demo_background_overlay():
     print("✅ Hersenachtergrond demo voltooid!")
 
 
+def demo_statische_achtergrond():
+    """
+    Demonstreer de nieuwe statische achtergrond functionaliteit.
+    
+    Deze functie toont:
+    - Automatische detectie van afbeelding_achtergrond.png
+    - Gebruik van maak_animatie_met_statische_achtergrond()
+    - Vergelijking tussen gegenereerde en statische achtergronden
+    - Error handling voor ontbrekende bestanden
+    """
+    print("\n" + "="*60)
+    print("🖼️  DEMO 5: STATISCHE ACHTERGROND ONDERSTEUNING (NIEUW!)")
+    print("="*60)
+    
+    # Genereer test data
+    print("Stap 1: fMRI test data genereren...")
+    fmri_data = generate_brain_like_data(width=80, height=80, frames=35, noise_level=0.03)
+    
+    # Creëer de standaard achtergrond afbeelding
+    print("Stap 2: Standaard achtergrond afbeelding creëren...")
+    static_background_path = create_brain_background_advanced(width=80, height=80)
+    
+    # Test automatische detectie
+    print("Stap 3: Automatische detectie testen...")
+    detected_path = zoek_standaard_achtergrond()
+    if detected_path:
+        print(f"   ✅ Automatische detectie succesvol: {detected_path}")
+    else:
+        print("   ❌ Automatische detectie gefaald")
+    
+    # Demonstreer nieuwe convenience functie met automatische detectie
+    print("Stap 4: Animatie maken met automatische achtergrond detectie...")
+    try:
+        static_animation = maak_animatie_met_statische_achtergrond(
+            fmri_data,
+            # Geen achtergrond_pad opgegeven - automatische detectie!
+            output_path="demo_statische_achtergrond_auto.gif",
+            overlay_alpha=0.8,
+            colormap='plasma',
+            interval=120
+        )
+        print("   ✅ Automatische detectie animatie: demo_statische_achtergrond_auto.gif")
+    except FileNotFoundError as e:
+        print(f"   ❌ Automatische detectie gefaald: {e}")
+    
+    # Demonstreer met expliciet pad
+    print("Stap 5: Animatie maken met expliciet achtergrond pad...")
+    explicit_animation = maak_animatie_met_statische_achtergrond(
+        fmri_data,
+        achtergrond_pad=static_background_path,
+        output_path="demo_statische_achtergrond_expliciet.gif",
+        overlay_alpha=0.7,
+        colormap='inferno',
+        interval=100
+    )
+    print("   💾 Expliciete pad animatie: demo_statische_achtergrond_expliciet.gif")
+    
+    # Vergelijking maken tussen verschillende achtergrond types
+    print("Stap 6: Vergelijkingsplot maken...")
+    
+    # Creëer ook een gegenereerde achtergrond voor vergelijking
+    generated_bg_path = create_sample_brain_background(width=80, height=80, 
+                                                     filename="generated_background_comparison.png")
+    
+    # Maak animatie met gegenereerde achtergrond
+    generated_animation = maak_animatie_met_achtergrond(
+        fmri_data,
+        generated_bg_path,
+        output_path="demo_gegenereerde_achtergrond.gif",
+        overlay_alpha=0.7,
+        colormap='inferno',
+        interval=100
+    )
+    print("   💾 Gegenereerde achtergrond animatie: demo_gegenereerde_achtergrond.gif")
+    
+    # Maak vergelijkingsplot
+    fig, axes = plt.subplots(2, 3, figsize=(15, 10))
+    fig.suptitle("Statische vs Gegenereerde Achtergrond Vergelijking", fontsize=16, fontweight='bold')
+    
+    # Laad achtergronden
+    static_bg = plt.imread(static_background_path)
+    generated_bg = plt.imread(generated_bg_path)
+    
+    # Rij 1: Achtergronden alleen
+    axes[0, 0].imshow(static_bg, cmap='gray')
+    axes[0, 0].set_title("Statische Achtergrond\n(afbeelding_achtergrond.png)")
+    axes[0, 0].axis('off')
+    
+    axes[0, 1].imshow(generated_bg, cmap='gray')
+    axes[0, 1].set_title("Gegenereerde Achtergrond\n(sample_brain_background.png)")
+    axes[0, 1].axis('off')
+    
+    axes[0, 2].imshow(fmri_data[:, :, 17], cmap='inferno')
+    axes[0, 2].set_title("fMRI Data Alleen")
+    axes[0, 2].axis('off')
+    
+    # Rij 2: Overlays
+    axes[1, 0].imshow(static_bg, cmap='gray')
+    axes[1, 0].imshow(fmri_data[:, :, 17], cmap='inferno', alpha=0.7)
+    axes[1, 0].set_title("Statische Achtergrond\n+ fMRI Overlay")
+    axes[1, 0].axis('off')
+    
+    axes[1, 1].imshow(generated_bg, cmap='gray')
+    axes[1, 1].imshow(fmri_data[:, :, 17], cmap='inferno', alpha=0.7)
+    axes[1, 1].set_title("Gegenereerde Achtergrond\n+ fMRI Overlay")
+    axes[1, 1].axis('off')
+    
+    # Verschil plot
+    diff = np.abs(static_bg - generated_bg)
+    im_diff = axes[1, 2].imshow(diff, cmap='hot')
+    axes[1, 2].set_title("Verschil tussen\nAchtergronden")
+    axes[1, 2].axis('off')
+    plt.colorbar(im_diff, ax=axes[1, 2], shrink=0.6)
+    
+    plt.tight_layout()
+    plt.savefig("demo_statische_vs_gegenereerde_vergelijking.png", dpi=150, bbox_inches='tight')
+    plt.close()
+    
+    print("   💾 Vergelijkingsplot: demo_statische_vs_gegenereerde_vergelijking.png")
+    
+    # Test error handling
+    print("Stap 7: Error handling demonstratie...")
+    
+    # Verwijder tijdelijk het standaard bestand om error te testen
+    if os.path.exists("afbeelding_achtergrond.png"):
+        os.rename("afbeelding_achtergrond.png", "afbeelding_achtergrond_backup.png")
+        
+        try:
+            # Dit zou een error moeten geven
+            error_animation = maak_animatie_met_statische_achtergrond(fmri_data)
+            print("   ❌ Error handling gefaald - geen error gegooid")
+        except FileNotFoundError as e:
+            print(f"   ✅ Error handling werkt correct: {str(e)[:80]}...")
+        
+        # Herstel het bestand
+        os.rename("afbeelding_achtergrond_backup.png", "afbeelding_achtergrond.png")
+    
+    print("✅ Statische achtergrond demo voltooid!")
+    
+    # Return informatie over gegenereerde bestanden
+    return {
+        'static_background': static_background_path,
+        'generated_background': generated_bg_path,
+        'animations': [
+            'demo_statische_achtergrond_auto.gif',
+            'demo_statische_achtergrond_expliciet.gif', 
+            'demo_gegenereerde_achtergrond.gif'
+        ]
+    }
+
+
 def demo_advanced_features():
     """
     Demonstreer geavanceerde features en verschillende instellingen.
@@ -418,6 +662,13 @@ def print_usage_tips():
         "   • Achtergrond wordt automatisch geschaald naar fMRI data grootte",
         "   • Kleurafbeeldingen worden automatisch naar grijswaarden geconverteerd",
         "",
+        "🖼️  Statische achtergrond tips (NIEUW!):",
+        "   • Plaats 'afbeelding_achtergrond.png' in je werkdirectory voor automatische detectie",
+        "   • Gebruik maak_animatie_met_statische_achtergrond() voor eenvoudige implementatie",
+        "   • Hogere resolutie achtergronden (200+ DPI) voor professionele resultaten",
+        "   • Test verschillende achtergrond stijlen voor optimale visualisatie",
+        "   • Statische achtergronden bieden meer controle dan gegenereerde achtergronden",
+        "",
         "⚙️ Performance tips:",
         "   • Kleinere arrays (32x32) voor snelle prototyping",
         "   • Grotere arrays (128x128+) voor publicatie-kwaliteit",
@@ -437,6 +688,7 @@ def print_usage_tips():
         "🚀 Snelle start:",
         "   • Gebruik maak_snelle_animatie() voor eenvoudige gevallen",
         "   • Gebruik maak_animatie_met_achtergrond() voor overlay animaties",
+        "   • Gebruik maak_animatie_met_statische_achtergrond() voor statische achtergronden",
         "   • Gebruik BewegendHersenAnimatie klasse voor volledige controle"
     ]
     
@@ -467,12 +719,15 @@ def main():
     print("• 🎓 Studenten die hersenactiviteit willen visualiseren") 
     print("• 📊 Data scientists die temporele patronen willen tonen")
     print("• 🎨 Iedereen die mooie wetenschappelijke animaties wil maken")
+    print()
+    print("🆕 NIEUW in deze versie: Statische achtergrond ondersteuning!")
+    print("   Plaats 'afbeelding_achtergrond.png' voor automatische detectie")
     
     try:
         # Demo 1: Basis functionaliteit
         basic_anim = demo_basic_animation()
         
-        # Demo 2: Hersenachtergrond overlay (NIEUW!)
+        # Demo 2: Hersenachtergrond overlay
         demo_background_overlay()
         
         # Demo 3: Geavanceerde features
@@ -480,6 +735,9 @@ def main():
         
         # Demo 4: Convenience functie
         quick_anim = demo_convenience_function()
+        
+        # Demo 5: Statische achtergrond (NIEUW!)
+        static_demo_results = demo_statische_achtergrond()
         
         # Toon handige tips
         print_usage_tips()
@@ -502,7 +760,14 @@ def main():
             "demo_advanced_viridis.mp4",
             "demo_advanced_hot.mp4",
             "demo_snelle_animatie.gif",
-            "demo_frame_extractie.png"
+            "demo_frame_extractie.png",
+            # Nieuwe bestanden voor statische achtergrond
+            "afbeelding_achtergrond.png",
+            "generated_background_comparison.png",
+            "demo_statische_achtergrond_auto.gif",
+            "demo_statische_achtergrond_expliciet.gif",
+            "demo_gegenereerde_achtergrond.gif",
+            "demo_statische_vs_gegenereerde_vergelijking.png"
         ]
         
         print("De volgende bestanden zijn gegenereerd:")
@@ -515,6 +780,7 @@ def main():
         print("• De code aanpassen voor je eigen data")
         print("• Experimenteren met verschillende instellingen")
         print("• Je eigen hersenachtergrond afbeeldingen gebruiken")
+        print("• 🆕 'afbeelding_achtergrond.png' gebruiken voor automatische achtergrond detectie")
         print("• De library gebruiken in je eigen projecten")
         
         print(f"\n📚 Voor meer informatie, bekijk de documentatie in bewegende_hersenen.py")
